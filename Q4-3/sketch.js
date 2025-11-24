@@ -22,7 +22,7 @@ function draw(){
     ellipse(t.x, t.y, t.size);
     t.x += t.vx;
     t.y += t.vy;
-    t.size += 2;
+    t.size += 0.5;
   }
 
   // ボールのアニメーション
@@ -49,17 +49,31 @@ function draw(){
 
   if(frameCount % 20 === 0) { // 20フレームごとに新しい的を追加する
     // BLANK[1] 新しい的オブジェクトを作成して targets 配列に追加しよう
+    const t ={
+      x: random(width),
+      y: random(height),
+      size: 10,
+      vx: random(-2, 2),
+      vy: random(-2, 2),
+    };
+    targets.push(t);
   }
 
   // ボールに当たった or 大きくなりすぎた的を配列から削除する
   const activeTargets = []; // 生き残った的を一時的に保持する配列
   for(let i = 0; i < targets.length; i++){
     let t = targets[i];
-    if(t.size < 200){ // 大きくなりすぎていない
+    if(t.size < 600){ // 大きくなりすぎていない
       let hit = false;
       for(let j = 0; j < balls.length; j++){ // すべてのボールと衝突判定
         let b = balls[j];
         // BLANK[2]
+        let d =dist(b.x, b.y, t.x, t.y);
+        if(d < (b.size/2 + t.size/2)){
+          hit = true;
+          break;
+        }
+         
       }
       if(!hit) activeTargets.push(t); // 衝突していなければ生き残る
     }

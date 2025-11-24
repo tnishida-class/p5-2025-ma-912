@@ -1,23 +1,35 @@
-// 折れ線グラフ
-function setup(){
-  createCanvas(400, 400);
-  background(240);
-
-  // 配列をランダムに初期化する
-  let scores = [];
-  for(let i = 0; i < 10; i++){
-    scores[i] = random(20, 100); // 60以上100未満のランダムな数を代入
+4-2
+function setup() {
+  createCanvas(200, 200);
+  background(240)
+  let scores=[];
+  for(let i=0; i<10; i++){
+    scores[i]=random(20, 100);
   }
+  console.log(scores);
 
-  // 横線を引く
-  const n = 10;
-  for(let i = 0; i < n; i++){ line(0, height * i / n, width, height * i / n); }
+const n=10;
+for(let i=0; i<n; i++){
+  line(0, height*i/n, width, height*i/n);
+}
 
-  // ここからが本番
-  fill(0);
-  const dx = width / scores.length;
-  let px, py; // 線を引くために一つ前の点を覚えておく変数
-  for(let i = 0; i < scores.length; i++){
-    // BLANK[1]
-  }
+noFill();
+stroke(0);
+strokeWeight(2);
+beginShape();
+for(let i=0; i<scores.length;i++){
+  const dx=width/scores.length;
+  const x=i*dx+dx/2;
+  const y=height-height*scores[i]/100;
+  vertex(x,y);
+}
+endShape();
+noStroke();
+fill(0);
+for(let i=0; i<scores.length; i++){
+  const dx=width/scores.length;
+  const x=i*dx+dx/2;
+  const y=height-height*scores[i]/100;
+  ellipse(x,y,8,8);
+}
 }
